@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muhammad CP | Personal Website</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- FontAwesome Icons for Social Media -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+
+  <div class="card-container">
+    
+    <!-- Theme Toggle Switch (Dark / Light Mode) -->
+    <div class="theme-toggle-box">
+      <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+        <i class="fa-solid fa-sun" id="themeIcon"></i>
+      </button>
+    </div>
+
+    <!-- Profile Photo & Name Section -->
+    <div class="profile-header">
+      <div class="photo-frame">
+        <img src="my-photo.jpg" alt="Muhammad CP" id="profileImg">
+      </div>
+      <h1>Muhammad CP</h1>
+      <p class="tagline">Welcome to Muhammad CP's Personal Website</p>
+    </div>
+
+    <!-- Personal Information Section (Phone & Email) -->
+    <div class="info-section">
+      <div class="info-box">
+        <i class="fa-solid fa-phone icon"></i>
+        <div>
+          <h3>Phone</h3>
+          <p><a href="tel:9562303634">+91 9562303634</a></p>
+        </div>
+      </div>
+
+      <!-- Email Section -->
+      <div class="info-box">
+        <i class="fa-solid fa-envelope icon"></i>
+        <div>
+          <h3>Email</h3>
+          <p><a href="mailto:muhammadcp96@gmail.com">muhammadcp96@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Links Section -->
+    <div class="social-links">
+      <a href="https://wa.me/919562303634" target="_blank" class="btn whatsapp">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+
+      <a href="https://instagram.com/muhammedcp__" target="_blank" class="btn instagram">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+
+      <a href="tel:9562303634" class="btn call">
+        <i class="fa-solid fa-phone-flip"></i> Call Now
+      </a>
+    </div>
+
+    <!-- Copy Phone Number Action -->
+    <div class="extra-action">
+      <button onclick="copyNumber()" class="btn-secondary">
+        <i class="fa-regular fa-copy"></i> Copy Phone Number
+      </button>
+      <p id="copyAlert" class="copy-alert"></p>
+    </div>
+
+    <footer>
+      <p>© 2026 Muhammad CP. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

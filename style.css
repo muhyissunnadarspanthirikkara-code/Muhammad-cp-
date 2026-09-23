@@ -1,0 +1,658 @@
+/* ==========================================================================
+   MUHAMMAD CP - PERSONAL WEBSITE STYLESHEET
+   Features:
+   - Smooth scrolling & mobile overscroll optimization
+   - Page load fade-in & staggered entrance animations
+   - Interactive button hover effects & ambient glow
+   - Fully responsive design (Mobile, Tablet, Desktop)
+   - Dark / Light mode glassmorphism design system
+   ========================================================================== */
+
+/* --- Google Font & CSS Variables --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Dark Theme Palette (Default) */
+  --bg-gradient: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b0f17 100%);
+  --bg-color: #0b0f17;
+  --card-bg: rgba(23, 32, 51, 0.75);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  
+  --info-bg: rgba(15, 23, 42, 0.55);
+  --info-border: rgba(255, 255, 255, 0.06);
+  --info-hover-bg: rgba(30, 41, 59, 0.7);
+  
+  --accent-color: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.35);
+  --text-main: #f8fafc;
+  --text-sub: #94a3b8;
+  --text-muted: #64748b;
+  --border-color: #334155;
+  
+  /* Brand Accent Colors */
+  --whatsapp-color: #25d366;
+  --whatsapp-glow: rgba(37, 211, 102, 0.38);
+  --instagram-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  --instagram-glow: rgba(225, 48, 108, 0.4);
+  --call-color: #2563eb;
+  --call-glow: rgba(37, 99, 235, 0.4);
+
+  /* Animation Timings */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme Palette */
+body.light-theme {
+  --bg-gradient: radial-gradient(circle at 50% 0%, #e0f2fe 0%, #f1f5f9 100%);
+  --bg-color: #f1f5f9;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(255, 255, 255, 0.8);
+  --card-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  
+  --info-bg: rgba(248, 250, 252, 0.85);
+  --info-border: rgba(226, 232, 240, 0.9);
+  --info-hover-bg: #ffffff;
+  
+  --accent-color: #0284c7;
+  --accent-glow: rgba(2, 132, 199, 0.25);
+  --text-main: #0f172a;
+  --text-sub: #475569;
+  --text-muted: #94a3b8;
+  --border-color: #cbd5e1;
+}
+
+/* --- Base & Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(16px, 4vw, 32px);
+  padding-top: calc(clamp(16px, 4vw, 32px) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(clamp(16px, 4vw, 32px) + env(safe-area-inset-bottom, 0px));
+  padding-left: calc(clamp(16px, 4vw, 32px) + env(safe-area-inset-left, 0px));
+  padding-right: calc(clamp(16px, 4vw, 32px) + env(safe-area-inset-right, 0px));
+  transition: background 0.4s ease, color 0.3s ease;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background Ambient Glow Elements */
+.ambient-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  transition: opacity 0.5s ease;
+}
+
+.ambient-glow-1 {
+  width: 320px;
+  height: 320px;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-glow);
+}
+
+.ambient-glow-2 {
+  width: 250px;
+  height: 250px;
+  bottom: 5%;
+  right: 10%;
+  background: rgba(225, 48, 108, 0.15);
+}
+
+/* --- Card Container & Glassmorphism --- */
+.card-container {
+  position: relative;
+  z-index: 1;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  width: 100%;
+  max-width: 440px;
+  border-radius: clamp(20px, 5vw, 28px);
+  border: 1px solid var(--card-border);
+  padding: clamp(24px, 6vw, 36px) clamp(18px, 5vw, 28px);
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  
+  /* Initial Page Fade-in Animation */
+  animation: cardFadeIn 0.85s var(--ease-spring) both;
+}
+
+/* Keyframes for Card Entrance */
+@keyframes cardFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Staggered entrance animations for inner items */
+.animate-item {
+  animation: itemSlideUp 0.7s var(--ease-spring) both;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+@keyframes itemSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Theme Toggle Switch Button --- */
+.theme-toggle-box {
+  position: absolute;
+  top: clamp(16px, 4vw, 24px);
+  right: clamp(16px, 4vw, 24px);
+  z-index: 10;
+}
+
+.theme-toggle-box button {
+  background: var(--info-bg);
+  border: 1px solid var(--border-color);
+  color: var(--accent-color);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.theme-toggle-box button:hover {
+  transform: scale(1.12) rotate(15deg);
+  background: var(--info-hover-bg);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.theme-toggle-box button:active {
+  transform: scale(0.92) rotate(-15deg);
+}
+
+.theme-toggle-box button:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+/* --- Profile Header Section --- */
+.profile-header {
+  margin-top: 10px;
+}
+
+.profile-header .photo-frame {
+  position: relative;
+  width: clamp(110px, 28vw, 130px);
+  height: clamp(110px, 28vw, 130px);
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--accent-color), #ec4899, #8b5cf6);
+  background-size: 200% 200%;
+  animation: gradientRotate 6s ease infinite alternate;
+  box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.35);
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease;
+}
+
+.profile-header .photo-frame:hover {
+  transform: scale(1.05);
+  box-shadow: 0 14px 30px -4px rgba(236, 72, 153, 0.45);
+}
+
+@keyframes gradientRotate {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.profile-header .photo-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-header img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.profile-header .photo-frame:hover img {
+  transform: scale(1.08);
+}
+
+/* Default Avatar Fallback (when image is missing) */
+.avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--accent-color);
+  font-size: 3rem;
+  background: var(--info-bg);
+}
+
+.profile-header h1 {
+  margin: 6px 0 6px;
+  font-size: clamp(1.5rem, 5vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.profile-header .tagline {
+  color: var(--text-sub);
+  font-size: clamp(0.85rem, 3vw, 0.95rem);
+  font-weight: 500;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* --- Contact Info Section --- */
+.info-section {
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
+  border-radius: 16px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.info-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 4px;
+  border-radius: 10px;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.info-box:hover {
+  background: var(--info-hover-bg);
+  transform: translateX(3px);
+}
+
+.info-box .icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.info-box:hover .icon-wrap {
+  transform: scale(1.1);
+  background: var(--accent-color);
+  color: #ffffff;
+}
+
+.info-box-text {
+  min-width: 0; /* Ensures proper text truncation if needed */
+}
+
+.info-box h2 {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.info-box p {
+  margin: 2px 0 0;
+  font-size: clamp(0.88rem, 3.2vw, 0.95rem);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info-box a {
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  display: inline-block;
+}
+
+.info-box a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.info-box a:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- Social & Action Buttons --- */
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: clamp(0.95rem, 3.5vw, 1.02rem);
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease, filter 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Shimmer Light Reflection Effect on Buttons */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.btn:hover::before {
+  left: 150%;
+}
+
+/* Button Icon Animations */
+.btn i {
+  font-size: 1.25rem;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.btn:hover i {
+  transform: scale(1.18) rotate(-4deg);
+}
+
+/* Active Click Feedback */
+.btn:active {
+  transform: scale(0.97) translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+/* WhatsApp Button */
+.btn.whatsapp {
+  background-color: var(--whatsapp-color);
+  box-shadow: 0 4px 14px -2px var(--whatsapp-glow);
+}
+
+.btn.whatsapp:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 8px 24px -2px var(--whatsapp-glow);
+  filter: brightness(1.05);
+}
+
+/* Instagram Button */
+.btn.instagram {
+  background: var(--instagram-gradient);
+  box-shadow: 0 4px 14px -2px var(--instagram-glow);
+}
+
+.btn.instagram:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 8px 24px -2px var(--instagram-glow);
+  filter: brightness(1.08);
+}
+
+/* Direct Call Button */
+.btn.call {
+  background-color: var(--call-color);
+  box-shadow: 0 4px 14px -2px var(--call-glow);
+}
+
+.btn.call:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 8px 24px -2px var(--call-glow);
+  filter: brightness(1.06);
+}
+
+/* --- Secondary Action: Copy Phone Number --- */
+.extra-action {
+  position: relative;
+}
+
+.btn-secondary {
+  position: relative;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--info-bg);
+  color: var(--text-main);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: clamp(0.85rem, 3.2vw, 0.92rem);
+  font-weight: 600;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-secondary i {
+  font-size: 1.05rem;
+  color: var(--accent-color);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-color);
+  background: var(--info-hover-bg);
+  box-shadow: 0 6px 18px -3px var(--accent-glow);
+  color: var(--accent-color);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Success state when number copied */
+.btn-secondary.copied {
+  border-color: var(--whatsapp-color);
+  color: var(--whatsapp-color);
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.btn-secondary.copied i {
+  color: var(--whatsapp-color);
+  transform: scale(1.2);
+}
+
+/* Copy Alert Message */
+.copy-alert {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--whatsapp-color);
+  margin-top: 8px;
+  min-height: 18px;
+  line-height: 18px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.copy-alert.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Footer --- */
+footer {
+  margin-top: 18px;
+  border-top: 1px solid var(--info-border);
+  padding-top: 16px;
+}
+
+footer p {
+  font-size: clamp(0.72rem, 2.5vw, 0.8rem);
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* --- Accessibility: Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .card-container,
+  .animate-item {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .profile-header .photo-frame {
+    animation: none !important;
+  }
+}
+
+/* --- Responsive Breakpoints --- */
+
+/* Small Mobile Screens (360px and below) */
+@media (max-width: 360px) {
+  body {
+    padding: 12px;
+  }
+
+  .card-container {
+    padding: 20px 14px;
+    border-radius: 18px;
+  }
+
+  .profile-header .photo-frame {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-header h1 {
+    font-size: 1.45rem;
+  }
+
+  .btn {
+    min-height: 46px;
+    font-size: 0.92rem;
+    gap: 8px;
+  }
+}
+
+/* Tablets & Foldables (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .card-container {
+    max-width: 460px;
+    padding: 36px 32px;
+  }
+}
+
+/* Desktop Screens (769px and above) */
+@media (min-width: 769px) {
+  .card-container {
+    max-width: 440px;
+  }
+}

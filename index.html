@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Muhammad CP | Official Personal Website</title>
+  
+  <!-- SEO & Social Sharing Meta Tags -->
+  <meta name="description" content="Official personal website of Muhammad CP. Connect via WhatsApp, Instagram, phone call, or email.">
+  <meta name="author" content="Muhammad CP">
+  <meta name="theme-color" content="#0b0f17" id="themeMetaColor">
+  <meta property="og:title" content="Muhammad CP | Official Personal Website">
+  <meta property="og:description" content="Connect with Muhammad CP directly via WhatsApp, Instagram, or Phone.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon (Emoji Data URI fallback for instant icon) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👤</text></svg>">
+
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons for Social & UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Production Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Ambient Light Accents for Atmosphere -->
+  <div class="ambient-glow ambient-glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow-2" aria-hidden="true"></div>
+
+  <main class="card-container" role="main">
+    
+    <!-- Theme Toggle Switch (Dark / Light Mode) -->
+    <div class="theme-toggle-box">
+      <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+        <i class="fa-solid fa-sun" id="themeIcon" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Profile Photo & Name Section -->
+    <header class="profile-header animate-item delay-1">
+      <div class="photo-frame">
+        <div class="photo-inner">
+          <img src="my-photo.jpg" alt="Muhammad CP" id="profileImg" onerror="handleImageError(this)">
+        </div>
+      </div>
+      <h1>Muhammad CP</h1>
+      <p class="tagline">Welcome to Muhammad CP's Personal Space</p>
+    </header>
+
+    <!-- Personal Information Section (Phone & Email) -->
+    <section class="info-section animate-item delay-2" aria-label="Contact Information">
+      <div class="info-box">
+        <div class="icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="info-box-text">
+          <h2>Phone</h2>
+          <p><a href="tel:9562303634" aria-label="Call Muhammad CP at +91 9562303634">+91 9562303634</a></p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="info-box-text">
+          <h2>Email</h2>
+          <p><a href="mailto:muhammadcp96@gmail.com" aria-label="Email Muhammad CP at muhammadcp96@gmail.com">muhammadcp96@gmail.com</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Action Links Section -->
+    <section class="social-links animate-item delay-3" aria-label="Quick Connect Actions">
+      <a href="https://wa.me/919562303634" target="_blank" rel="noopener noreferrer" class="btn whatsapp" id="btnWhatsapp" aria-label="Chat with Muhammad CP on WhatsApp">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        <span>Chat on WhatsApp</span>
+      </a>
+
+      <a href="https://instagram.com/muhammedcp__" target="_blank" rel="noopener noreferrer" class="btn instagram" id="btnInstagram" aria-label="Visit Muhammad CP's Instagram profile">
+        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+        <span>Follow on Instagram</span>
+      </a>
+
+      <a href="tel:9562303634" class="btn call" id="btnCall" aria-label="Call Muhammad CP now">
+        <i class="fa-solid fa-phone-flip" aria-hidden="true"></i>
+        <span>Call Now</span>
+      </a>
+    </section>
+
+    <!-- Copy Phone Number Action -->
+    <div class="extra-action animate-item delay-4">
+      <button onclick="copyNumber()" class="btn-secondary" id="copyBtn" aria-label="Copy phone number to clipboard">
+        <i class="fa-regular fa-copy" id="copyIcon" aria-hidden="true"></i>
+        <span class="btn-text">Copy Phone Number</span>
+      </button>
+      <p id="copyAlert" class="copy-alert" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="animate-item delay-5">
+      <p>© 2026 Muhammad CP. All rights reserved.</p>
+    </footer>
+
+  </main>
+
+  <!-- Production JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
